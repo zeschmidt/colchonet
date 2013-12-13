@@ -18,8 +18,24 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 	end
 
+	def edit 
+		@user = User.find(params[:id])
+	end
+
+	def update
+		@user = User.find(params[:id])
+		if @user.save
+			redirect_to @user,
+				notice: 'Registro atualizado com sucesso'
+		else
+			render action: :edit
+		end
+
+	end
+
+
 	def user_params
-		params.require(:user).permit(:email, :full_name, :location, :password,:bio)
+		params.require(:user).permit(:email, :full_name, :location, :password,:password_confirmation,:bio)
 	end
 
 end
